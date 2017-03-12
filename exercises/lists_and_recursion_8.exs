@@ -17,9 +17,9 @@ defmodule Orders do
 
   defp orders_with_taxes(orders, tax_rates) do
     for [_, {:ship_to, ship_to}, _] = order <- orders,
-    {state, _} <- tax_rates,
-    ship_to == state,
-    do: order
+      {state, _} <- tax_rates,
+      ship_to == state,
+      do: order
   end
 
   defp orders_without_taxes(orders, tax_rates) do
