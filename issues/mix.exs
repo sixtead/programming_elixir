@@ -2,13 +2,20 @@ defmodule Issues.Mixfile do
   use Mix.Project
 
   def project do
-    [app:             :issues,
-     escript:         escript_config(),
-     version:         "0.1.0",
-     elixir:          "~> 1.4",
-     build_embedded:  Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps:            deps()]
+    [app:               :issues,
+     escript:           escript_config(),
+     version:           "0.1.0",
+     elixir:            "~> 1.4",
+     build_embedded:    Mix.env == :prod,
+     start_permanent:   Mix.env == :prod,
+     test_coverage:     [tool: ExCoveralls],
+     preferred_cli_env: [
+                          "coveralls":        :test,
+                          "coveralls.detail": :test,
+                          "coveralls.post":   :test,
+                          "coveralls.html":   :test
+                        ],
+     deps:              deps()]
   end
 
   # Configuration for the OTP application
@@ -30,10 +37,11 @@ defmodule Issues.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-     {:httpoison, "~>0.11"},
-     {:poison,    "~>3.1"},
-     {:ex_doc,    "~>0.12"},
-     {:earmark,   "~>1.0", override: true}
+     {:httpoison,   "~>0.11"},
+     {:poison,      "~>3.1"},
+     {:ex_doc,      "~>0.12"},
+     {:earmark,     "~>1.0", override: true},
+     {:excoveralls, "~>0.6", only: :test}
     ]
   end
 
